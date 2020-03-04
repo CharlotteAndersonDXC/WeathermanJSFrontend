@@ -32,8 +32,7 @@ app.get('/cities', (req, res) => {
 
   reqpromise(options)
     .then((data) => {
-      console.log(data)
-      res.render('home', {pagecontent: JSON.stringify(data)})
+      res.render('cities', {jsonData: data})
       console.log('success')
     })
     .catch((err) => {
@@ -53,7 +52,7 @@ app.get('/flights', (req, res) => {
   reqpromise(options)
     .then((data) => {
       console.log(data)
-      res.render('home', {pagecontent: JSON.stringify(data)})
+      res.render('flights', {jsonData: data})
       console.log('success')
     })
     .catch((err) => {
