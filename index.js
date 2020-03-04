@@ -1,0 +1,3 @@
+//index
+
+require('./app/index')

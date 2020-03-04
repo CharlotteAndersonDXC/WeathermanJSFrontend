@@ -1,44 +1,63 @@
-const request = require('request-promise')
+const path = require('path')
+const express = require('express')
+const exphbs = require('express-handlebars')
+const reqpromise = require('request-promise')
 
+const app = express()
+const port = 3000
 
+app.listen(port, (err) => {
+  if (err) {
+    return console.log('something bad happened', err)
+  }
+  console.log(`server is listening on ${port}`)
+})
 
-function pullCitiesFromAPI(){
-    const options = {
-      method: 'GET',
-      uri: 'http://127.0.0.1:5002/weatherman/sunnycities',
-      json: true
-    }
-    request(options)
-      .then(function (response) {
-        
-        console.log(response)
-        // Request was successful, use the response object at will
-        console.log('hello from Node.js, this time with the cities from the webserver')
+app.engine('.hbs', exphbs({
+  defaultLayout: 'main',
+  extname: '.hbs',
+  layoutsDir: path.join(__dirname, 'views/layouts')
+}))
 
-      })
-      .catch(function (err) {
-        // Something bad happened, handle the error
-        console.log('Node.js says poop off')
-      })
-    }
+app.set('view engine', '.hbs')
+app.set('views', path.join(__dirname, 'views'))
 
-
-function pullFlightsFromAPI(){
+app.get('/cities', (req, res) => {
   const options = {
     method: 'GET',
-    uri: 'http://127.0.0.1:5002/weatherman/sunnyflights',
+    //uri: 'http://127.0.0.1:5002/weatherman/sunnycities',
+    uri: 'http://127.0.0.1:5002/wman/sunnycities',
     json: true
   }
-  request(options)
-    .then(function (response) {
-      
-      console.log(response)
-      // Request was successful, use the response object at will
-      console.log('hello from Node.js, this time with the flights from the wbeserver')
 
+  reqpromise(options)
+    .then((data) => {
+      console.log(data)
+      res.render('home', {pagecontent: JSON.stringify(data)})
+      console.log('success')
     })
-    .catch(function (err) {
+    .catch((err) => {
       // Something bad happened, handle the error
-      console.log('Node.js says poop off')
+      console.log(err)
     })
+})
+
+app.get('/flights', (req, res) => {
+  const options = {
+    method: 'GET',
+    //uri: 'http://127.0.0.1:5002/weatherman/sunnyflights',
+    uri: 'http://127.0.0.1:5002/wman/sunnyflights',
+    json: true
   }
+
+  reqpromise(options)
+    .then((data) => {
+      console.log(data)
+      res.render('home', {pagecontent: JSON.stringify(data)})
+      console.log('success')
+    })
+    .catch((err) => {
+      // Something bad happened, handle the error
+      console.log(err)
+    })
+})
