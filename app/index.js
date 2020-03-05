@@ -23,14 +23,13 @@ app.set('view engine', '.hbs')
 app.set('views', path.join(__dirname, 'views'))
 
 app.get('/cities', (req, res) => {
-  const options = {
+  const cityOptions = {
     method: 'GET',
-    //uri: 'http://127.0.0.1:5002/weatherman/sunnycities',
     uri: 'http://127.0.0.1:5002/wman/sunnycities',
     json: true
   }
 
-  reqpromise(options)
+  reqpromise(cityOptions)
     .then((data) => {
       res.render('cities', {jsonData: data})
       console.log('success')
@@ -42,14 +41,13 @@ app.get('/cities', (req, res) => {
 })
 
 app.get('/flights', (req, res) => {
-  const options = {
+  const flightOptions = {
     method: 'GET',
-    //uri: 'http://127.0.0.1:5002/weatherman/sunnyflights',
     uri: 'http://127.0.0.1:5002/wman/sunnyflights',
     json: true
   }
 
-  reqpromise(options)
+  reqpromise(flightOptions)
     .then((data) => {
       console.log(data)
       res.render('flights', {jsonData: data})
@@ -60,3 +58,37 @@ app.get('/flights', (req, res) => {
       console.log(err)
     })
 })
+
+
+
+app.get('/app', (req, res) => {
+  const flightOptions = {
+    method: 'GET',
+    //uri: 'http://127.0.0.1:5002/weatherman/sunnyflights',
+    uri: 'http://127.0.0.1:5002/wman/sunnyflights',
+    json: true
+  }
+
+  const cityOptions = {
+    method: 'GET',
+    //uri: 'http://127.0.0.1:5002/weatherman/sunnycities',
+    uri: 'http://127.0.0.1:5002/wman/sunnycities',
+    json: true
+  }
+  
+  Promise.all([
+    reqpromise(cityOptions),
+    reqpromise(flightOptions)
+  ])
+  .then((Response) => {
+    console.log(Response[0])
+    res.render('interactive', {cityData: Response[0], flightData: Response[1]})
+  })  
+  .catch((err) => {
+    // Something bad happened, handle the error
+    console.log(err)
+    reject()
+  })
+  
+})
+
