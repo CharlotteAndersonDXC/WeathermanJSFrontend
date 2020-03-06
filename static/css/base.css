@@ -1,0 +1,29 @@
+body{
+    background-color: darkblue;
+}
+
+#all{
+    margin: 5% 20%;
+    background-color: darkcyan;
+}
+
+#cities{
+    float:left;
+    padding: 2.5%;
+    margin: auto;
+    max-width: 45%;
+    background-color: #92a4dc;
+}
+
+#flights{
+    float:left;
+    padding: 2%;
+    margin: auto;
+    max-width: 45%;
+    background-color: cornflowerblue;
+} 
+
+.cityButton{
+    width: 100%;
+    background-color: #66a4dc;4
+}

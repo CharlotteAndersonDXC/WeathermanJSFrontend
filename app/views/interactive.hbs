@@ -1,17 +1,19 @@
-<h2>Cities:</h2>
-<ui>
-    {{#each cityData}}
-    <li>{{name}}, {{iata}}, {{city}}</li>
-    {{/each}}
-    
-</ul>
+<section id="all">   
+    <div id="cities">
+        <h2>Cities:</h2>
+        
+        {{#each cityData}}
+            <div class="cityButton" id="{{iata}}" onclick="/{{iata}}">{{name}}, {{city}}</div>
+        {{/each}}
+        </div>
 
 
-
-<h2>Flights:</h2>
-<ui>
-    {{#each flightData}}
-    <li id="" >{{arrivalPort}}, {{carrierCode}}, {{departureTime}}</li>
-    {{/each}}
-    
-</ul>
+    <div id="flights">
+    <h2>Flights:</h2>
+    <ui>
+        {{#each flightData}}
+        <div class="flightButton {{arrivalPort}}">{{departureTime}} {{carrierCode}} flight to {{arrivalPort}}</div>
+        {{/each}}
+        </ul>
+    </div>
+</section>

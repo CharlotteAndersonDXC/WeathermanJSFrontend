@@ -49,7 +49,6 @@ app.get('/flights', (req, res) => {
 
   reqpromise(flightOptions)
     .then((data) => {
-      console.log(data)
       res.render('flights', {jsonData: data})
       console.log('success')
     })
@@ -81,7 +80,6 @@ app.get('/app', (req, res) => {
     reqpromise(flightOptions)
   ])
   .then((Response) => {
-    console.log(Response[0])
     res.render('interactive', {cityData: Response[0], flightData: Response[1]})
   })  
   .catch((err) => {
@@ -92,3 +90,4 @@ app.get('/app', (req, res) => {
   
 })
 
+app.use(express.static('static'))
