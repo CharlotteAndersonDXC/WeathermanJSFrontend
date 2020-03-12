@@ -1,0 +1,7 @@
+<section class="containAll">   
+    <div id="airports">
+    {{#each airportData}}
+    <div class="airportButton" onclick= "window.location.href = '/app/{{iata}}'"> {{name}}, {{city}} </div>
+    {{/each}}
+    </div>
+</section>

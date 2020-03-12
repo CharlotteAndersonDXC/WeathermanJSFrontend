@@ -1,19 +1,46 @@
-<section id="all">   
+<section class="containAll">   
     <div id="cities">
-        <h2>Cities:</h2>
-        
-        {{#each cityData}}
-            <div class="cityButton" id="{{iata}}" onclick="/{{iata}}">{{name}}, {{city}}</div>
-        {{/each}}
+        <div class="cityButton" onclick="appearAllFlights()"><b>Show All Flights</b></div>
+
+            {{#each cityData}}
+                <div class="cityButton" id="{{iata}}" onclick="appearFlights('{{iata}}')">{{name}}, {{city}}</div>
+            {{/each}}
+
+            <iframe src="https://giphy.com/embed/S5JSwmQYHOGMo" width="95%" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/stickers/please-construction-patient-S5JSwmQYHOGMo">via GIPHY</a></p>
         </div>
 
-
-    <div id="flights">
-    <h2>Flights:</h2>
-    <ui>
+    <div id="flights">     
         {{#each flightData}}
         <div class="flightButton {{arrivalPort}}">{{departureTime}} {{carrierCode}} flight to {{arrivalPort}}</div>
         {{/each}}
-        </ul>
     </div>
 </section>
+
+
+<script>
+
+function vanishFlights(){
+    var flightsSelected = document.getElementsByClassName('flightButton');
+    for(var i = 0; i < flightsSelected.length; i++){
+        flightsSelected[i].style.display = "none";
+    }
+}
+
+function appearFlights(iata){
+    vanishFlights()
+    var flightsSelected = document.getElementsByClassName(iata);
+    for(var i = 0; i < flightsSelected.length; i++){
+        flightsSelected[i].style.display = "inline";
+    }
+}
+
+
+function appearAllFlights(){
+    vanishFlights()
+    var flightsSelected = document.getElementsByClassName('flightButton');
+    for(var i = 0; i < flightsSelected.length; i++){
+        flightsSelected[i].style.display = "inline";
+    }
+}
+
+</script>

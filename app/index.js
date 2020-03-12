@@ -22,59 +22,43 @@ app.engine('.hbs', exphbs({
 app.set('view engine', '.hbs')
 app.set('views', path.join(__dirname, 'views'))
 
-app.get('/cities', (req, res) => {
-  const cityOptions = {
-    method: 'GET',
-    uri: 'http://127.0.0.1:5002/wman/sunnycities',
-    json: true
-  }
-
-  reqpromise(cityOptions)
-    .then((data) => {
-      res.render('cities', {jsonData: data})
-      console.log('success')
-    })
-    .catch((err) => {
-      // Something bad happened, handle the error
-      console.log(err)
-    })
-})
-
-app.get('/flights', (req, res) => {
-  const flightOptions = {
-    method: 'GET',
-    uri: 'http://127.0.0.1:5002/wman/sunnyflights',
-    json: true
-  }
-
-  reqpromise(flightOptions)
-    .then((data) => {
-      res.render('flights', {jsonData: data})
-      console.log('success')
-    })
-    .catch((err) => {
-      // Something bad happened, handle the error
-      console.log(err)
-    })
-})
-
-
-
 app.get('/app', (req, res) => {
-  const flightOptions = {
+  const airportOptions = {
     method: 'GET',
-    //uri: 'http://127.0.0.1:5002/weatherman/sunnyflights',
-    uri: 'http://127.0.0.1:5002/wman/sunnyflights',
+    uri: 'http://127.0.0.1:5002/weatherman/airports',
     json: true
   }
 
+  reqpromise(airportOptions)
+    .then((data) => {
+      res.render('airports', {airportData: data})
+      console.log('success')
+    })
+    .catch((err) => {
+      // Something bad happened, handle the error
+      console.log(err)
+    })
+})
+
+
+
+
+app.get('/app/:flyFrom', (req, res) => {
+
   const cityOptions = {
     method: 'GET',
-    //uri: 'http://127.0.0.1:5002/weatherman/sunnycities',
-    uri: 'http://127.0.0.1:5002/wman/sunnycities',
+    uri: 'http://127.0.0.1:5002/weatherman/sunnycities',
+    //uri: 'http://127.0.0.1:5002/wman/sunnycities',
     json: true
   }
   
+  const flightOptions = {
+    method: 'GET',
+    uri: 'http://127.0.0.1:5002/weatherman/sunnyflights/' + req.params.flyFrom,
+    //uri: 'http://127.0.0.1:5002/wman/sunnyflights/' + req.params.flyFrom,
+    json: true
+  }
+
   Promise.all([
     reqpromise(cityOptions),
     reqpromise(flightOptions)
